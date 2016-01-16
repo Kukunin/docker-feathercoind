@@ -5,7 +5,8 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8842ce5e && \
     echo "deb http://ppa.launchpad.net/bitcoin/bitcoin/ubuntu trusty main" > /etc/apt/sources.list.d/bitcoin.list
 
 RUN apt-get update && \
-    apt-get install -y build-essential libtool autotools-dev autoconf libssl-dev git-core libboost-all-dev libdb4.8-dev libdb4.8++-dev libminiupnpc-dev pkg-config
+    apt-get install -y build-essential libtool autotools-dev autoconf libssl-dev git-core libboost-all-dev libdb4.8-dev libdb4.8++-dev libminiupnpc-dev pkg-config && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN git clone https://github.com/FeatherCoin/Feathercoin.git /opt/feathercoin && \
     cd /opt/feathercoin && \
@@ -15,7 +16,6 @@ RUN git clone https://github.com/FeatherCoin/Feathercoin.git /opt/feathercoin &&
     cp /opt/feathercoin/src/feathercoind /usr/local/bin/ && \
     cp /opt/feathercoin/src/feathercoin-cli /usr/local/bin/ && \
     rm -rf /opt/feathercoin
-
 
 RUN groupadd -r feathercoin && useradd -r -m -g feathercoin feathercoin
 
